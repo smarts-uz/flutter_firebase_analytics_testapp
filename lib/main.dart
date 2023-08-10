@@ -1,6 +1,15 @@
+import 'package:firebase_analytics_test_app/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -66,6 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
+    analytics.logEvent(name: 'increment_button_press');
   }
 
   @override
